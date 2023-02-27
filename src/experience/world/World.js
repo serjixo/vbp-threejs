@@ -4,7 +4,6 @@ import Floor from "./Floor.js";
 import Fox from "./Fox.js";
 import * as THREE from 'three'
 import LoadingOverlay from "../utils/LoadingOverlay.js";
-import LoadingOverlayTest from "../utils/LoadingOverlayTest.js";
 
 export default class World {
     constructor() {
@@ -23,17 +22,16 @@ export default class World {
 
     onResourcesLoaded = () => {
         this.loadingOverlay = new LoadingOverlay()
-        for (let i = 0; i < 100; i++) {
-            this.loadingOverlayTest = new LoadingOverlayTest()
-        }
 
         this.floor = new Floor()
         this.fox = new Fox()
         this.environment = new Environment()
+
+        this.loadingOverlay.setTransparencyAnimated(0)
     }
 
     onUpdate = (time) => {
-        if(this.fox)
+        if (this.fox)
             this.fox.onUpdate(time)
     }
 }

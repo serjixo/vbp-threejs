@@ -1,6 +1,7 @@
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 import * as THREE from 'three'
 import ResourcesObserver from "./ResourcesObserver.js";
+import gsap from 'gsap'
 
 export default class Resources {
     constructor(sources) {
@@ -25,6 +26,17 @@ export default class Resources {
 
     setLoaders() {
         this.loaders = {}
+        // this.loaders.loadingManager = new THREE.LoadingManager(
+        //     () => {
+        //         console.log('loaded')
+        //     },
+        //     () => {
+        //         console.log('progress')
+        //     },
+        //     () => {
+        //         console.log('error on loading manager')
+        //     }
+        // )
         this.loaders.gltfLoader = new GLTFLoader()
         this.loaders.textureLoader = new THREE.TextureLoader()
         this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader()

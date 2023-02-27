@@ -5,6 +5,7 @@ import LoadingOverlayFragment from '../world/shaders/loadingOverlay/LoadingOverl
 import gsap from "gsap";
 
 export default class LoadingOverlay {
+
     constructor() {
         this.experience = new Experience()
 
@@ -44,4 +45,5 @@ export default class LoadingOverlay {
         )
 
     }
+
 }

@@ -1,6 +1,8 @@
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 import * as THREE from 'three'
 import ResourcesObserver from "./ResourcesObserver.js";
+import gsap from 'gsap'
+import LoadingBar from "../world/LoadingBar.js";
 
 export default class Resources {
     constructor(sources) {
@@ -14,9 +16,14 @@ export default class Resources {
         this.toLoad = this.sources.length
         this.loaded = 0
 
+        // this.loadBar -
+
+        this.loadingBar = new LoadingBar()
+
         this.setLoaders()
         this.startLoading().then(() => {
             if (this.loaded === this.toLoad) {
+                this.loadingBar.endOfLoad()
                 this.resourcesObserver.notify()
             }
         })
@@ -25,6 +32,17 @@ export default class Resources {
 
     setLoaders() {
         this.loaders = {}
+        // this.loaders.loadingManager = new THREE.LoadingManager(
+        //     () => {
+        //         console.log('loaded')
+        //     },
+        //     () => {
+        //         console.log('progress')
+        //     },
+        //     () => {
+        //         console.log('error on loading manager')
+        //     }
+        // )
         this.loaders.gltfLoader = new GLTFLoader()
         this.loaders.textureLoader = new THREE.TextureLoader()
         this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader()
@@ -40,6 +58,7 @@ export default class Resources {
             if (!loader) console.log('source loader typeOfLoader wrong?')
             await loader.loadAsync(this.sources[i].path).then((file) => {
                 this.sourceLoaded(this.sources[i], file)
+                this.loadingBar.setLength(this.loaded/this.toLoad)
             })
         }
 
@@ -49,4 +68,5 @@ export default class Resources {
         this.items[source.name] = file
         this.loaded++
     }
+
 }

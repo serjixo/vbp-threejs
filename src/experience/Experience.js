@@ -69,7 +69,6 @@ export default class Experience {
     }
 
     destroy() {
-
         this.resizeObserver.stopResizeListener()
         // this.resizeObserver.stopResizeListener()
         this.scene.traverse((child) => {

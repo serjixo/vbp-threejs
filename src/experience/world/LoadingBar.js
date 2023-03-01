@@ -8,10 +8,12 @@ export default class LoadingBar {
     }
 
     endOfLoad() {
+
         window.setTimeout(() => {
             this.loadingBar.classList.add('ended')
             this.loadingBar.style.transform = `scaleX(0)`
         }, 500)
+
 
     }
 }
